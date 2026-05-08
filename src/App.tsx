@@ -17,17 +17,20 @@ export const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-type SortType = 'none' | 'alphabetical' | 'length';
-
-export const App = () => {
-  const [sortBy, setSortBy] = useState<SortType>('none');
+export enum SortType {
+  None = 'none',
+  Alphabetical = 'alphabetical',
+  Length = 'length',
+}
+export const App: React.FC = () => {
+  const [sortBy, setSortBy] = useState<SortType>(SortType.None);
   const [isReversed, setIsReversed] = useState<boolean>(false);
 
   const displayedGoods: string[] = [...goodsFromServer];
 
-  if (sortBy === 'alphabetical') {
+  if (sortBy === SortType.Alphabetical) {
     displayedGoods.sort((a, b) => a.localeCompare(b));
-  } else if (sortBy === 'length') {
+  } else if (sortBy === SortType.Length) {
     displayedGoods.sort((a, b) => a.length - b.length);
   }
 
@@ -43,7 +46,7 @@ export const App = () => {
         <button
           type="button"
           className={`button is-info ${sortBy !== 'alphabetical' ? 'is-light' : ''}`}
-          onClick={() => setSortBy('alphabetical')}
+          onClick={() => setSortBy(SortType.Alphabetical)}
         >
           Sort alphabetically
         </button>
@@ -51,7 +54,7 @@ export const App = () => {
         <button
           type="button"
           className={`button is-success ${sortBy !== 'length' ? 'is-light' : ''}`}
-          onClick={() => setSortBy('length')}
+          onClick={() => setSortBy(SortType.Length)}
         >
           Sort by length
         </button>
@@ -69,7 +72,7 @@ export const App = () => {
             type="button"
             className="button is-danger is-light"
             onClick={() => {
-              setSortBy('none');
+              setSortBy(SortType.None);
               setIsReversed(false);
             }}
           >
