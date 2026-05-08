@@ -1,5 +1,4 @@
 import React from 'react';
-
 import 'bulma/css/bulma.css';
 import './App.scss';
 import { useState } from 'react';
@@ -22,6 +21,7 @@ export enum SortType {
   Alphabetical = 'alphabetical',
   Length = 'length',
 }
+
 export const App: React.FC = () => {
   const [sortBy, setSortBy] = useState<SortType>(SortType.None);
   const [isReversed, setIsReversed] = useState<boolean>(false);
@@ -38,14 +38,14 @@ export const App: React.FC = () => {
     displayedGoods.reverse();
   }
 
-  const isModified: boolean = sortBy !== 'none' || isReversed;
+  const isModified: boolean = sortBy !== SortType.None || isReversed;
 
   return (
     <div className="section content">
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info ${sortBy !== 'alphabetical' ? 'is-light' : ''}`}
+          className={`button is-info ${sortBy !== SortType.Alphabetical ? 'is-light' : ''}`}
           onClick={() => setSortBy(SortType.Alphabetical)}
         >
           Sort alphabetically
@@ -53,7 +53,7 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is-success ${sortBy !== 'length' ? 'is-light' : ''}`}
+          className={`button is-success ${sortBy !== SortType.Length ? 'is-light' : ''}`}
           onClick={() => setSortBy(SortType.Length)}
         >
           Sort by length
